@@ -1,0 +1,7 @@
+com/document/chat/rag/controller/ChatController.class
+com/document/chat/rag/RagApplication.class
+com/document/chat/rag/ingestion/VideoTransService.class
+com/document/chat/rag/controller/VideoTransController.class
+com/document/chat/rag/ingestion/IngestionService.class
+com/document/chat/rag/config/SecurityConfig.class
+com/document/chat/rag/ingestion/VideoIngestionService.class
