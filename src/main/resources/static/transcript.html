@@ -3,63 +3,52 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>API Fetch and Edit</title>
+    <title>LLM Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
       body {
-        font-family: Arial, sans-serif;
-
-        max-width: 1000px;
-
-        margin: 20px auto;
-
+        font-family: monospace;
         padding: 20px;
-
-        border: 1px solid #ccc;
-
-        border-radius: 5px;
       }
 
       textarea {
         width: 100%;
-
         height: 700px;
-
         margin-top: 10px;
       }
 
       button {
         margin-top: 10px;
-
         padding: 10px;
-
         cursor: pointer;
       }
     </style>
   </head>
 
-  <body>
-    <h3>Fetch and Edit API Data</h3>
-
-    <input
-      type="text"
-      id="apiUrl"
-      placeholder="Enter API URL"
-      style="width: 100%"
-    />
-
-    <button onclick="fetchData()">Fetch Data</button>
-
-    <textarea
-      id="responseText"
-      placeholder="Fetched text will appear here..."
-    ></textarea>
-
-    <button onclick="saveData()">Save</button>
-
+  <body class="bg-gray-100 h-screen flex flex-col">
+  <div class="container mx-auto p-4 flex-1 flex flex-col">
+    <h1 class="text-center text-gray-800">Fetch YouTube Video Transcript</h1>
+    <form id="accept-url-form" class="flex items-center mb-5">
+      <label for="youtubeURL"></label>
+      <input
+        type="text"
+        id="youtubeURL"
+        placeholder="Enter Youtube URL"
+        class="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="fetchData()">Fetch Transcript</button>
+    </form>
+    <form id="transcript-form"  class="flex flex-col items-end">
+      <label for="responseText"></label>
+      <textarea
+        id="responseText"
+        placeholder="Transcript text will appear here..."
+      ></textarea>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5" onclick="saveData()">Save</button>
+    </form>
+  </div>
     <script>
       function fetchData() {
         const apiUrl = document.getElementById("apiUrl").value;
