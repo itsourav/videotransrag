@@ -15,7 +15,7 @@
 
       textarea {
         width: 100%;
-        height: 700px;
+        height: 75vh;
         margin-top: 10px;
       }
 
@@ -28,27 +28,46 @@
   </head>
 
   <body class="bg-gray-100 h-screen flex flex-col">
-  <div class="container mx-auto p-4 flex-1 flex flex-col">
-    <h1 class="text-center text-gray-800">Fetch YouTube Video Transcript</h1>
-    <form id="accept-url-form" class="flex items-center mb-5">
-      <label for="youtubeURL"></label>
-      <input
-        type="text"
-        id="youtubeURL"
-        placeholder="Enter Youtube URL"
-        class="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="fetchData()">Fetch Transcript</button>
-    </form>
-    <form id="transcript-form"  class="flex flex-col items-end">
-      <label for="responseText"></label>
-      <textarea
-        id="responseText"
-        placeholder="Transcript text will appear here..."
-      ></textarea>
-      <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5" onclick="saveData()">Save</button>
-    </form>
-  </div>
+    <div class="container mx-auto p-4 flex-1 flex flex-col">
+      <h1 class="text-center text-gray-800">Fetch YouTube Video Transcript</h1>
+      <form id="accept-url-form" class="flex items-center mb-5">
+        <label for="youtubeURL"></label>
+        <input
+          type="text"
+          id="youtubeURL"
+          placeholder="Enter Youtube URL"
+          class="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onclick="fetchData()"
+        >
+          Fetch Transcript
+        </button>
+      </form>
+      <form id="transcript-form" class="flex flex-col items-end">
+        <label for="responseText"></label>
+        <textarea
+          id="responseText"
+          placeholder="Transcript text will appear here..."
+        ></textarea>
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
+          onclick="saveData()"
+        >
+          Save
+        </button>
+      </form>
+      <div
+        id="toast-simple"
+        class="flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:divide-gray-700 dark:bg-gray-800 absolute hidden"
+        role="alert"
+      >
+        <div class="ps-4 text-sm font-normal">
+          Transcript saved successfully.
+        </div>
+      </div>
+    </div>
     <script>
       function fetchData() {
         const apiUrl = document.getElementById("apiUrl").value;
@@ -58,8 +77,7 @@
 
           return;
         }
-		
-        fetch("/transcript",{
+        fetch("/transcript", {
           method: "POST",
 
           headers: {
@@ -85,7 +103,6 @@
         const editedText = document.getElementById("responseText").value;
 
         const saveApiUrl = "/saveTranscript"; // Replace with your actual save API
-
         fetch(saveApiUrl, {
           method: "POST",
 
@@ -98,16 +115,22 @@
           .then(response => response.json())
 
           .then(data => {
-            alert("Data saved successfully!");
-
+            showToast();
             console.log("Save Response:", data);
           })
 
           .catch(error => {
             console.error("Error saving data:", error);
-
-            alert("Failed to save data.");
           });
+      }
+
+      function showToast() {
+        const toast = document.getElementById("toast-simple");
+        if (!toast) return;
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 3000);
       }
     </script>
   </body>
