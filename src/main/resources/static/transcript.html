@@ -40,6 +40,7 @@
         />
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="button"
           onclick="fetchData()"
         >
           Fetch Transcript
@@ -53,6 +54,7 @@
         ></textarea>
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
+          type="button"
           onclick="saveData()"
         >
           Save
@@ -70,7 +72,7 @@
     </div>
     <script>
       function fetchData() {
-        const apiUrl = document.getElementById("apiUrl").value;
+        const apiUrl = document.getElementById("youtubeURL").value;
 
         if (!apiUrl) {
           alert("Please enter a valid API URL.");
